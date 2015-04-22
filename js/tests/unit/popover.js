@@ -259,4 +259,14 @@ $(function () {
     assert.strictEqual($popover.data('bs.popover'), undefined, 'should not initialize the popover')
   })
 
+  QUnit.test('should throw an error when template contains multiple top-level elements', function (assert) {
+    assert.expect(1)
+    assert.throws(function () {
+      $('<span data-toggle="popover" data-title="some title" data-content="some content">some text</span>')
+        .appendTo('#qunit-fixture')
+        .bootstrapPopover({ template: '<div>Foo</div><div>Bar</div>' })
+        .bootstrapPopover('show')
+    }, new Error('popover `template` option must consist of exactly 1 top-level element!'))
+  })
+
 })
